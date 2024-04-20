@@ -2,7 +2,7 @@
 
 namespace BulkyWeb.Controllers
 {
-    public class CategoryController : Controller
+    public class CategoryController1 : Controller
     {
         public IActionResult Index()
         {
