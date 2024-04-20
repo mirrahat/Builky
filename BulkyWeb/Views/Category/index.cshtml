@@ -1,1 +1,29 @@
-﻿<h1>Test</h1>
+﻿@model List<Category>
+
+    <h1>Category List</h1>
+    <table>
+        <tr>
+            <th>CategoryName</th>
+            <th>DisplayORder</th>
+        </tr>
+        <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var obj in Model.OrderBy(u => u.DisplayOrder))
+            {
+            <tr>
+                <td>
+                    @obj.Name
+                </td>
+                    <td>
+                        @obj.DisplayOrder
+                    </td>
+            </tr>
+            }
+        }
+        else
+        {
+            <p>No data available</p>
+        }
+    </tbody>
+    </table>
