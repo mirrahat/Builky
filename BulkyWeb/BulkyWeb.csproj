@@ -16,4 +16,8 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BulkyRazor_Temp\BulkyRazor_Temp.csproj" />
+  </ItemGroup>
+
 </Project>
