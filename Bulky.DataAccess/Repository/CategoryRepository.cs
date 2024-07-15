@@ -1,6 +1,6 @@
 ﻿using BulkyBook.DataAccess.Data;
 using BulkyBook.DataAccess.Repository.IRepository;
-using BulkyBook.Models;
+using BulkyBook.Models.Models;
 using BulkyBookWeb.Models;
 using System;
 using System.Collections.Generic;

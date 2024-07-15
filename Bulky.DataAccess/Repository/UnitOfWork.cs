@@ -14,7 +14,7 @@ namespace BulkyBook.DataAccess.Repository
         private ApplicationDBContext _db;
         public ICategoryRepository Category { get;private set; }
 
-        public ProductRepository Product { get;private set; }      
+        public IProductRepository Product { get;private set; }      
 
         public UnitOfWork(ApplicationDBContext db)
         {
