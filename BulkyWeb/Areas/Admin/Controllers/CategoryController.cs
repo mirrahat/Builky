@@ -53,16 +53,15 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(x=>x.Id==id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(x=>x.CategoryId ==id);
          
-
             //Category? categoryFromDb2 = _db.Categories.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb3 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
-            return View(categoryFromDb);
+             return View(categoryFromDb);
         }
 
         [HttpPost]
@@ -78,7 +77,6 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 _unitOfWork.Category.Update(category);
                 _unitOfWork.Category.Save();
-
                 TempData["success"] = "Category Update Successfully";
                 return RedirectToAction("Index", "Category");
             }
@@ -93,7 +91,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? categoryFromDb = _unitOfWork.Category.Get(u => u.CategoryId == id);
             //Category? categoryFromDb2 = _db.Categories.FirstOrDefault(u => u.Id == id);
             //Category? categoryFromDb3 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
             if (categoryFromDb == null)
@@ -114,7 +112,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             //}
 
 
-            Category? obj = _unitOfWork.Category.Get(u => u.Id == id);
+            Category? obj = _unitOfWork.Category.Get(u => u.CategoryId == id);
             if (obj == null)
             {
                 return NotFound();

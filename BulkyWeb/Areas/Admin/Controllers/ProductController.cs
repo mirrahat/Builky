@@ -1,7 +1,11 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models;
 using BulkyBook.Models.Models;
+using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+
 
 namespace BulkyBookWeb.Areas.Admin.Controllers
 {
@@ -20,12 +24,26 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
+               u => new SelectListItem
+               {
+                   Text = u.Name,
+                   Value = u.CategoryId.ToString(),
+               });
 
-            return View();
+
+            ProductVM productVM = new ProductVM
+            {
+                CategoryList = CategoryList,
+                Product = new Product()
+                
+            };
+
+            return View(productVM);
         }
 
         [HttpPost]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVm)
         {
             //if (category.Name == category.DisplayOrder.ToString()) {
             //    ModelState.AddModelError("name", "The Displayorder cannot exactly match the Name");
@@ -35,12 +53,25 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             //}
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                _unitOfWork.Product.Add(productVm.Product);
                 _unitOfWork.Product.Save();
                 TempData["success"] = "Category Created Successfully";
-                return RedirectToAction("Index", "Product");
+                return RedirectToAction("Index");
             }
-            return View();
+            else {
+
+                productVm.CategoryList = _unitOfWork.Category.GetAll().Select(
+           u => new SelectListItem
+           {
+               Text = u.Name,
+               Value = u.CategoryId.ToString(),
+           });
+               
+
+                
+                return View(productVm);
+            }
+           
         }
 
 
@@ -50,12 +81,10 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product? productFromDb = _unitOfWork.Product.Get(x => x.Id == id);
+            Product? productFromDb = _unitOfWork.Product.Get(x => x.ProductId == id);
 
 
-            //Category? categoryFromDb2 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            //Category? categoryFromDb3 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
-            if (productFromDb == null)
+             if (productFromDb == null)
             {
                 return NotFound();
             }
@@ -65,12 +94,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(Product product)
         {
-            //if (category.Name == category.DisplayOrder.ToString()) {
-            //    ModelState.AddModelError("name", "The Displayorder cannot exactly match the Name");
-            //}
-            //if (category.Name.ToLower() == "test") {
-            //    ModelState.AddModelError("", "Test is an invalid value");
-            //}
+            
             if (ModelState.IsValid)
             {
                 _unitOfWork.Product.Update(product);
@@ -90,10 +114,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-            Product? productFromDb = _unitOfWork.Product.Get(u => u.Id == id);
-            //Category? categoryFromDb2 = _db.Categories.FirstOrDefault(u => u.Id == id);
-            //Category? categoryFromDb3 = _db.Categories.Where(u => u.Id == id).FirstOrDefault();
-            if (productFromDb == null)
+            Product? productFromDb = _unitOfWork.Product.Get(u => u.ProductId == id);
+             if (productFromDb == null)
             {
                 return NotFound();
             }
@@ -103,15 +125,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public IActionResult DeletePost(int? id)
         {
-            //if (category.Name == category.DisplayOrder.ToString()) {
-            //    ModelState.AddModelError("name", "The Displayorder cannot exactly match the Name");
-            //}
-            //if (category.Name.ToLower() == "test") {
-            //    ModelState.AddModelError("", "Test is an invalid value");
-            //}
-
-
-            Product? obj = _unitOfWork.Product.Get(u => u.Id == id);
+            Product? obj = _unitOfWork.Product.Get(u => u.ProductId == id);
             if (obj == null)
             {
                 return NotFound();
@@ -120,13 +134,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             _unitOfWork.Product.Save();
             TempData["success"] = "Product Deleted Successfully";
             return RedirectToAction("Index", "Product");
-            //if (ModelState.IsValid)
-            //{
-            //    _db.Categories.Update(category);
-            //    _db.SaveChanges();
-            //  return View();
-
-            //}
+            
 
         }
     }

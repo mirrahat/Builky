@@ -36,7 +36,7 @@ namespace BulkyBook.DataAccess.Repository
         public IEnumerable<T> GetAll()
         {
             IQueryable<T> query = _dbSet;
-            return query.ToList();
+                return query.ToList();
         }
 
         public void Remove(T entity)

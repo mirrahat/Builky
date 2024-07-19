@@ -5,7 +5,7 @@
 namespace BulkyBook.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class BulkyBook : Migration
+    public partial class ProductsTableInsertion22223 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
