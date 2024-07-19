@@ -1,4 +1,4 @@
-﻿using BulkyBook.DataAccess.Data;
+﻿ using BulkyBook.DataAccess.Data;
 using BulkyBook.DataAccess.Repository.IRepository;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ namespace BulkyBook.DataAccess.Repository
         private ApplicationDBContext _db;
         public ICategoryRepository Category { get;private set; }
 
-        public ProductRepository Product { get;private set; }      
+        public IProductRepository Product { get;private set; }      
 
         public UnitOfWork(ApplicationDBContext db)
         {
