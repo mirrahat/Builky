@@ -22,7 +22,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             return View(products);
         }
 
-        public IActionResult Create()
+        public IActionResult Upsert(int? Id)
         {
             IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(
                u => new SelectListItem
@@ -39,11 +39,20 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
                 
             };
 
-            return View(productVM);
+            if (Id == null || Id == 0)
+            {
+                return View(productVM);
+            }
+            else {
+                productVM.Product = _unitOfWork.Product.Get(x => x.ProductId == Id);
+                return View(productVM);
+            }
+
+           
         }
 
         [HttpPost]
-        public IActionResult Create(ProductVM productVm)
+        public IActionResult Upsert(ProductVM productVm, IFormFile? iiformFile)
         {
             //if (category.Name == category.DisplayOrder.ToString()) {
             //    ModelState.AddModelError("name", "The Displayorder cannot exactly match the Name");
