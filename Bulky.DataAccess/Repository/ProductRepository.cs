@@ -23,9 +23,10 @@ namespace BulkyBook.DataAccess.Repository
                 _db.SaveChanges();
             }
 
-            public void Update(Product entity)
+            public void Update(Product obj)
             {
                 _db.Products.Update(entity);
+            var objFormDb=_db.Products.FirstOrDefault(u=>u.ProductId==obj.ProductId)
             }
 
            
