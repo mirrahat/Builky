@@ -25,6 +25,10 @@
     <Folder Include="Controllers\" />
 
     <Folder Include="wwwroot\images\product\" />
+
+    <Folder Include="wwwroot\js\NewFolder1\" />
+
+    <Folder Include="wwwroot\js\NewFolder\" />
   </ItemGroup>
 
 </Project>
