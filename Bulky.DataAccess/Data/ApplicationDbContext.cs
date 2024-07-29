@@ -5,11 +5,13 @@
 using BulkyBook.Models;
 using BulkyBook.Models.Models;
 using BulkyBookWeb.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace BulkyBook.DataAccess.Data
 {
-    public class ApplicationDBContext:DbContext
+    public class ApplicationDBContext:IdentityDbContext<IdentityUser>
     {
 
         public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options):base (options)
@@ -21,6 +23,8 @@ namespace BulkyBook.DataAccess.Data
         public DbSet<Product> Products { get; set; }
 
         protected override void OnModelCreating(ModelBuilder moedlBuilder) {
+
+            base.OnModelCreating(moedlBuilder);
             moedlBuilder.Entity<Category>().HasData(
                new Category { CategoryId = 1, Name = "Mir", DisplayOrder = 1 },
                new Category { CategoryId = 2, Name = "Mir", DisplayOrder = 2 },
