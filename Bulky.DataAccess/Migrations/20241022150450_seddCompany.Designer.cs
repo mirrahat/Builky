@@ -4,6 +4,7 @@ using BulkyBook.DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BulkyBook.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20241022150450_seddCompany")]
+    partial class seddCompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +101,7 @@ namespace BulkyBook.DataAccess.Migrations
                     b.HasData(
                         new
                         {
-                            Id = 11,
+                            Id = 1,
                             City = "Newport",
                             Name = "Mir",
                             PhoneNumber = "018454594509",
@@ -107,7 +110,7 @@ namespace BulkyBook.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 2,
                             City = "Newport",
                             Name = "Mir",
                             PhoneNumber = "018454594509",
@@ -116,39 +119,12 @@ namespace BulkyBook.DataAccess.Migrations
                         },
                         new
                         {
-                            Id = 33,
+                            Id = 3,
                             City = "Newport",
                             Name = "Mir",
                             PhoneNumber = "018454594509",
                             PostalCode = "3015",
                             StreeAddress = "lonnn"
-                        },
-                        new
-                        {
-                            Id = 111,
-                            City = "Newpo1rt",
-                            Name = "Mir1",
-                            PhoneNumber = "0118454594509",
-                            PostalCode = "30115",
-                            StreeAddress = "lonn1n"
-                        },
-                        new
-                        {
-                            Id = 222,
-                            City = "Newpor2t",
-                            Name = "Mir2",
-                            PhoneNumber = "0218454594509",
-                            PostalCode = "32015",
-                            StreeAddress = "l2onnn"
-                        },
-                        new
-                        {
-                            Id = 333,
-                            City = "Newport3",
-                            Name = "Mir3",
-                            PhoneNumber = "0318454594509",
-                            PostalCode = "30315",
-                            StreeAddress = "lonnn3"
                         });
                 });
 
@@ -286,33 +262,6 @@ namespace BulkyBook.DataAccess.Migrations
                             Price50 = 22.0,
                             Title = "Leaves and Wonders"
                         });
-                });
-
-            modelBuilder.Entity("BulkyBook.Models.Models.ShoppingCart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ApplicationUserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ShoppingCarts");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -530,9 +479,6 @@ namespace BulkyBook.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CompnayId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -561,25 +507,6 @@ namespace BulkyBook.DataAccess.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-                });
-
-            modelBuilder.Entity("BulkyBook.Models.Models.ShoppingCart", b =>
-                {
-                    b.HasOne("BulkyBook.Models.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("BulkyBook.Models.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ApplicationUser");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -11,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class ShoppingCartRepository : Repository<ShoppingCart>, IShoppingCartRepository
     {
         private ApplicationDBContext _db;
-        public CategoryRepository(ApplicationDBContext db) : base(db)
+        public ShoppingCartRepository(ApplicationDBContext db) : base(db)
         {
             _db = db;
         }
@@ -23,9 +23,9 @@ namespace BulkyBook.DataAccess.Repository
             _db.SaveChanges();
         }
 
-        public void Update(Category entity)
+        public void Update(ShoppingCart obj)
         {
-            _db.Categories.Update(entity);
+            _db.ShoppingCarts.Update(obj);
         }
     }
 }

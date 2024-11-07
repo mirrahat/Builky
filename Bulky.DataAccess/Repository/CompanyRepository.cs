@@ -11,21 +11,20 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CompanyRepository : Repository<Company>, ICompanyRepository
     {
         private ApplicationDBContext _db;
-        public CategoryRepository(ApplicationDBContext db) : base(db)
-        {
+        public CompanyRepository(ApplicationDBContext db):base(db) {
             _db = db;
         }
         public void Save()
         {
-            _db.SaveChanges();
+           _db.SaveChanges();
         }
 
-        public void Update(Category entity)
+        public void Update(Company entity)
         {
-            _db.Categories.Update(entity);
+           _db.Company.Update(entity);
         }
     }
 }
