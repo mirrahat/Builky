@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository.IRepository
 {
-    public interface IOrderDetailRepository : IRepository<OrderDetails>
+    public interface IOrderHeaderRepository : IRepository<OrderHeader>
     {
-        void Update(OrderDetails obj);
+        void Update(OrderHeader obj);
         void Save();
     }
 }
