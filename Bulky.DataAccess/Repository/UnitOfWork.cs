@@ -31,6 +31,8 @@ namespace BulkyBook.DataAccess.Repository
             Product= new ProductRepository(_db);
             Company = new CompanyRepository(_db);
             ApplicationUser = new ApplicationUserRepository(_db);
+            OrderHeader = new OrderHeaderRepository(_db);
+            OrderDetail = new OrderDetailRepository(_db);
         }
         public void Save()
         {
