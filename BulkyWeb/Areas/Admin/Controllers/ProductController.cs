@@ -182,8 +182,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         #region API CALLS
         public IActionResult GetAll()
         {
-            List<Product> products = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
-            return Json(new { data = products });
+            List<OrderHeader> orjOrderHeader = _unitOfWork.OrderHeader.GetAll(includeProperties: "ApplicationUser").ToList();
+            return Json(new { data = orjOrderHeader });
         }
 
         #endregion
