@@ -1,0 +1,65 @@
+﻿@model List<Company>
+
+@if (TempData["success"] != null)
+{
+    <h2 class="alert alert-success">@TempData["success"]</h2>
+}
+
+@if (Model == null || !Model.Any())
+{
+    <div>Nothing in my life</div>
+}
+else
+{
+    <div class="row">
+        <div class="container">
+            <div class="row pt-4 pb-3">
+                <div class="col-6">
+                    <h2 class="text-primary">Company List</h2>
+                </div>
+                <div class="col-6 text-end">
+                    <a asp-controller="Company" asp-action="Upsert" class="btn btn-primary">
+                        <i class="bi bi-plus-circle"></i> Create New Company
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <table id="tblTable" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Company Name</th>
+                    <th>Street Address</th>
+                    <th>City</th>
+                    <th>Postal Code</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var company in Model)
+                {
+                    <tr>
+                        <td>@company.Name</td>
+                        <td>@company.StreeAddress</td>
+                        <td>@company.City</td>
+                        <td>@company.PostalCode</td>
+                        <td>@company.PhoneNumber</td>
+                        <td>
+                            <a asp-controller="Company" asp-action="Upsert" asp-route-id="@company.Id" class="btn btn-sm btn-primary">
+                                <i class="bi bi-pencil-square"></i> Edit
+                            </a>
+                            <a asp-controller="Company" asp-action="Delete" asp-route-id="@company.Id" class="btn btn-sm btn-danger">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+@section Scripts {
+    <script src="~/js/company.js"></script>
+}

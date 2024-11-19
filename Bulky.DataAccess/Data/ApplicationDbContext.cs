@@ -1,9 +1,4 @@
-﻿
-
-
-
-using BulkyBook.Models;
-using BulkyBook.Models.Models;
+﻿using BulkyBook.Models.Models;
 using BulkyBookWeb.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -23,6 +18,11 @@ namespace BulkyBook.DataAccess.Data
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
+        public DbSet<Company> Company { get; set; }
+
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
 
         protected override void OnModelCreating(ModelBuilder moedlBuilder) {
 
@@ -32,6 +32,12 @@ namespace BulkyBook.DataAccess.Data
                new Category { CategoryId = 2, Name = "Mir", DisplayOrder = 2 },
                new Category { CategoryId = 3, Name = "Mir", DisplayOrder = 3 }
               );
+
+            moedlBuilder.Entity<Company>().HasData(
+                new Company { Id = 11, Name = "Mir", StreeAddress = "lonnn", City="Newport", PostalCode="3015", PhoneNumber="018454594509" },
+                new Company { Id = 22, Name = "Mir", StreeAddress = "lonnn", City = "Newport", PostalCode = "3015", PhoneNumber = "018454594509" },
+                new Company { Id = 33, Name = "Mir", StreeAddress = "lonnn", City = "Newport", PostalCode = "3015", PhoneNumber = "018454594509" }
+             );
 
             moedlBuilder.Entity<Product>().HasData(
              new Product
@@ -46,7 +52,7 @@ namespace BulkyBook.DataAccess.Data
                  Price50 = 85,
                  Price100 = 80,
                  CategoryId = 1,
-                 ImageUrl=""
+                 ImageUrl = ""
              },
                 new Product
                 {
@@ -60,7 +66,7 @@ namespace BulkyBook.DataAccess.Data
                     Price50 = 25,
                     Price100 = 20,
                     CategoryId = 2,
-                 ImageUrl = ""
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -119,6 +125,39 @@ namespace BulkyBook.DataAccess.Data
                     ImageUrl = ""
                 }
              );
+
+
+            moedlBuilder.Entity<Company>().HasData(
+            new Company
+            {
+                Id = 111,
+                Name = "Mir1",
+                StreeAddress = "lonn1n",
+                City = "Newpo1rt",
+                PostalCode = "30115",
+                PhoneNumber = "0118454594509"
+            },
+               new Company
+               {
+
+                   Id = 222,
+                   Name = "Mir2",
+                   StreeAddress = "l2onnn",
+                   City = "Newpor2t",
+                   PostalCode = "32015",
+                   PhoneNumber = "0218454594509"
+               },
+               new Company
+               {
+                   Id = 333,
+                   Name = "Mir3",
+                   StreeAddress = "lonnn3",
+                   City = "Newport3",
+                   PostalCode = "30315",
+                   PhoneNumber = "0318454594509"
+               }
+              
+            );
         }
     }
 }
