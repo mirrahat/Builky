@@ -55,7 +55,7 @@
                             </li>
                        @*  } *@
 
-                        @if (HttpContextAccessor.HttpContext.Session.Get32(SD.SessionCart) != null)
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.SessionCart) != null)
                         
                         {
                             <li class="nav-item">
