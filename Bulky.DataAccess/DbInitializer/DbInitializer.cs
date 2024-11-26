@@ -31,9 +31,9 @@ namespace BulkyBook.DataAccess.DbInitializer
             //migrations if they are not applied
 
             try {
-                if (_dbContext.Database.GetPendingMigrations().Count() > 0) {
+              
                 _dbContext.Database.Migrate();
-                }
+                
             
             }
             catch(Exception e) { }
@@ -46,7 +46,7 @@ namespace BulkyBook.DataAccess.DbInitializer
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Admin)).GetAwaiter().GetResult();
                 _roleManager.CreateAsync(new IdentityRole(SD.Role_Company)).GetAwaiter().GetResult();
                 //if roles are not created , 
-                _userManager.CreateAsync(new ApplicationUser
+                var result = _userManager.CreateAsync(new ApplicationUser
                 {
                     UserName = "admin@dotnetmaestry.com",
                     Email = "admin@dotnetmaestry.com",
@@ -56,8 +56,16 @@ namespace BulkyBook.DataAccess.DbInitializer
                     State = "vic",
                     PostalCode = "3015",
                     City = "Melbourne"
+                }, "Admin123#").Result;
 
-                }, "Admin123").GetAwaiter().GetResult();
+                if (!result.Succeeded)
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        Console.WriteLine($"Error------: {error.Description}");
+                    }
+                }
+
 
                 ApplicationUser user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == "admin@dotnetmaestry.com");
                 _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
