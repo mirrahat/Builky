@@ -1,0 +1,39 @@
+﻿
+
+@if (TempData["success"] != null)
+{
+
+    <h2>@TempData["success"]</h2>
+}
+<div class="row">
+    <div class="container">
+        <div class="row pt-4 pb-3">
+            <div class="col-6">
+                <h2 class="text-primary">UserList List</h2>
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="User" asp-action="Create" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Create New User</a>
+
+            </div>
+        </div>
+    </div>
+    <table id="tblTable" class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>title</th>
+                <th>Description</th>
+                <th>ISBN</th>
+                <th>Author</th>
+                <th>Category</th>
+
+            </tr>
+        </thead>
+
+    </table>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/user.js"></script>
+
+}

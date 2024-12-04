@@ -118,7 +118,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 			}
 
 			// Set payment and order status based on CompanyId
-			if (shoppingCartVM.OrderHeader.ApplicationUser.CompnayId==0)
+			if (shoppingCartVM.OrderHeader.ApplicationUser.CompanyId==0)
 			{
 				shoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				shoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
@@ -148,7 +148,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.OrderDetail.Add(orderDetails);
                 _unitOfWork.Save();
             }
-			if (applicationUser.CompnayId == 0)
+			if (applicationUser.CompanyId == 0)
 			{
 				/*ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;*/

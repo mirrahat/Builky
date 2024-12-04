@@ -1,6 +1,5 @@
 ﻿using BulkyBook.DataAccess.Repository.IRepository;
 using BulkyBook.Models.Models;
-using BulkyBook.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -15,7 +14,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         private readonly IUnitOfWork _unitOfWork;
 
         public CompanyController(IUnitOfWork unitOfWork)
-        { _unitOfWork = unitOfWork;
+        {
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
@@ -25,44 +25,47 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         public IActionResult Upsert(int? Id)
         {
-            
+
 
 
             if (Id == null || Id == 0)
             {
                 return View(new Company());
             }
-            else {
+            else
+            {
                 Company companyObj = _unitOfWork.Company.Get(x => x.Id == Id);
                 return View(companyObj);
             }
 
-           
+
         }
 
         [HttpPost]
         public IActionResult Upsert(Company companyObj)
         {
-           
+
             if (ModelState.IsValid)
             {
-                
+
                 if (companyObj.Id == 0)
                 {
                     _unitOfWork.Company.Add(companyObj);
                 }
-                else {
+                else
+                {
                     _unitOfWork.Company.Update(companyObj);
                 }
-               
+
                 _unitOfWork.Company.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction("Index");
             }
-            else {                
+            else
+            {
                 return View(companyObj);
             }
-           
+
         }
 
 
@@ -75,7 +78,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             Company? CompanyFromDb = _unitOfWork.Company.Get(x => x.Id == id);
 
 
-             if (CompanyFromDb == null)
+            if (CompanyFromDb == null)
             {
                 return NotFound();
             }
@@ -85,7 +88,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         [HttpPost]
         public IActionResult Edit(Company Company)
         {
-            
+
             if (ModelState.IsValid)
             {
                 _unitOfWork.Company.Update(Company);
@@ -113,21 +116,21 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
              return View(CompanyFromDb);
          }*/
 
-       /* [HttpPost, ActionName("Delete")]
-        public IActionResult DeletePost(int? id)
-        {
-            Company? obj = _unitOfWork.Company.Get(u => u.CompanyId == id);
-            if (obj == null)
-            {
-                return NotFound();
-            }
-            _unitOfWork.Company.Remove(obj);
-            _unitOfWork.Company.Save();
-            TempData["success"] = "Company Deleted Successfully";
-            return RedirectToAction("Index", "Company");
+        /* [HttpPost, ActionName("Delete")]
+         public IActionResult DeletePost(int? id)
+         {
+             Company? obj = _unitOfWork.Company.Get(u => u.CompanyId == id);
+             if (obj == null)
+             {
+                 return NotFound();
+             }
+             _unitOfWork.Company.Remove(obj);
+             _unitOfWork.Company.Save();
+             TempData["success"] = "Company Deleted Successfully";
+             return RedirectToAction("Index", "Company");
 
 
-        }*/
+         }*/
 
 
         #region API CALLS
@@ -139,14 +142,15 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
 
         #endregion
 
-       
-        public IActionResult Delete(int? id) {
+
+        public IActionResult Delete(int? id)
+        {
             var CompanyToBeDeleted = _unitOfWork.Company.Get(u => u.Id == id);
             if (CompanyToBeDeleted == null)
             {
                 return Json(new { success = false, message = "Error while deleting" });
             }
-           
+
             _unitOfWork.Company.Remove(CompanyToBeDeleted);
             _unitOfWork.Save();
             return Json(new { success = true, message = "Deleting Successfully" });
