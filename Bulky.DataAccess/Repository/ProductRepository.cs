@@ -10,8 +10,8 @@ using System.Threading.Tasks;
 
 namespace BulkyBook.DataAccess.Repository
 {
-  
-        public class ProductRepository : Repository<Product>, IProductRepository
+
+    public class ProductRepository : Repository<Product>, IProductRepository
         {
             private ApplicationDBContext _db;
             public ProductRepository(ApplicationDBContext db) : base(db)

@@ -118,7 +118,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 			}
 
 			// Set payment and order status based on CompanyId
-			if (shoppingCartVM.OrderHeader.ApplicationUser.CompnayId==0)
+			if (shoppingCartVM.OrderHeader.ApplicationUser.CompanyId==0)
 			{
 				shoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				shoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;
@@ -148,7 +148,7 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
                 _unitOfWork.OrderDetail.Add(orderDetails);
                 _unitOfWork.Save();
             }
-			if (applicationUser.CompnayId == 0)
+			if (applicationUser.CompanyId == 0)
 			{
 				/*ShoppingCartVM.OrderHeader.PaymentStatus = SD.PaymentStatusPending;
 				ShoppingCartVM.OrderHeader.OrderStatus = SD.StatusPending;*/
@@ -222,10 +222,12 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Minus(int cartId)
         {
-            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId,tracked:true);
             
             if (cartFromDb.Count <= 1)
             {
+                HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count()-1);
+
                 _unitOfWork.ShoppingCart.Remove(cartFromDb);
             }
             else {
@@ -240,10 +242,11 @@ namespace BulkyBookWeb.Areas.Customer.Controllers
 
         public IActionResult Remove(int cartId)
         {
-            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId);
+            var cartFromDb = _unitOfWork.ShoppingCart.Get(u => u.Id == cartId, tracked:true);
+            HttpContext.Session.SetInt32(SD.SessionCart, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == cartFromDb.ApplicationUserId).Count() - 1);
             _unitOfWork.ShoppingCart.Remove(cartFromDb);
             _unitOfWork.Save();
-            return RedirectToAction(nameof(Index));
+			 return RedirectToAction(nameof(Index));
 
         }
 

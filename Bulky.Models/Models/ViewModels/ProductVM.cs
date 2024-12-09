@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 
-namespace BulkyBook.Models.ViewModels
+namespace BulkyBook.Models.Models.ViewModels
 {
     public class ProductVM
     {
